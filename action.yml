@@ -1,5 +1,9 @@
 name: 'Wait for commit status to succeed'
 description: 'Waits for a commit status to succeed and also returns the JSON of the commit status.'
+author: 'Muhammad Faizan'
+branding:
+  icon: 'git-commit'
+  color: 'blue'
 inputs:
   context:
     description: 'The context field of the commit status.'
