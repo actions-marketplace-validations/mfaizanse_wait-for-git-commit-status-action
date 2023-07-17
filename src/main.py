@@ -83,11 +83,13 @@ def main():
             jsonStr = json.dumps(status)
             set_action_output('state', status['state'])
             set_action_output('json', jsonStr)
+            print(status)
             exit(1)
         elif status['state'] == 'success':
             jsonStr = json.dumps(status)
             set_action_output('state', status['state'])
             set_action_output('json', jsonStr)
+            print(status)
             exit(0)
         else:
             exit('Unknown status.state: {}'.format(status['state']))
