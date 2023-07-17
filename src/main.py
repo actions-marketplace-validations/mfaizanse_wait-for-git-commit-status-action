@@ -58,6 +58,10 @@ def getCommitStatusByContext(context, statuses):
             return status
     return None
 
+def set_action_output(name, value):
+    with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+        print(f'{name}={value}', file=fh)
+
 def main():
     inputs = readInputs()
     printInputs(inputs)
@@ -77,15 +81,13 @@ def main():
             continue
         elif status['state'] == 'failure':
             jsonStr = json.dumps(status)
-            # to set output, print to shell in following syntax
-            print(f"::set-output name=state::{status['state']}")
-            print(f"::set-output name=json::{jsonStr}")
+            set_action_output('state', status['state'])
+            set_action_output('json', jsonStr)
             exit(1)
         elif status['state'] == 'success':
             jsonStr = json.dumps(status)
-            # to set output, print to shell in following syntax
-            print(f"::set-output name=state::{status['state']}")
-            print(f"::set-output name=json::{jsonStr}")
+            set_action_output('state', status['state'])
+            set_action_output('json', jsonStr)
             exit(0)
         else:
             exit('Unknown status.state: {}'.format(status['state']))
